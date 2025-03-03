@@ -1,31 +1,32 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkFlex;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkMax; // Updated import paths
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkLowLevel.MotorType; // Updated import paths
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class claw extends SubsystemBase {
-    // Declare two Spark Max motors for the left and right drive motors
-    private final SparkMax leftMotor;
-    private final SparkMax rightMotor;
+public class claw extends TimedRobot {
+
+    private final SparkMax leftMotor = new SparkMax(11, MotorType.kBrushless); // Updated class name
+    private final SparkMax rightMotor = new SparkMax(12, MotorType.kBrushless); // Updated class name
 
     // Declare the Xbox controller
     private final XboxController controller;
 
-    public arm() {
-        // Initialize motors (replace with your actual CAN IDs)
-        leftMotor = new CANSparkMax(1, MotorType.kBrushless);  // Left motor on CAN ID 1
-        rightMotor = new CANSparkMax(2, MotorType.kBrushless); // Right motor on CAN ID 2
-
-        // Initialize the Xbox controller (port 0 is usually the default)
+    // Initialize the Xbox controller (port 0 is usually the default)
+    public claw() {
         controller = new XboxController(0);
+
+        // Configuring the motors
+        SparkMaxConfig config = new SparkMaxConfig();
+        config.inverted(false);
+        config.idleMode(IdleMode.kBrake);
     }
 
     @Override
-    public void periodic() {
+    public void teleopPeriodic() {
         // Get the trigger values (range from 0.0 to 1.0)
         double leftTrigger = controller.getLeftTriggerAxis();
         double rightTrigger = controller.getRightTriggerAxis();
@@ -44,3 +45,4 @@ public class claw extends SubsystemBase {
         }
     }
 }
+    
