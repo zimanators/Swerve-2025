@@ -7,10 +7,10 @@ import com.revrobotics.spark.SparkLowLevel.MotorType; // Updated import paths
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 
-public class claw extends TimedRobot {
+public class shooter extends TimedRobot {
 
-    private final SparkMax leftMotor = new SparkMax(11, MotorType.kBrushless); // Updated class name
-    private final SparkMax rightMotor = new SparkMax(12, MotorType.kBrushless); // Updated class name
+    private final SparkMax shooterMotor = new SparkMax(11, MotorType.kBrushless); // Updated class name
+  
 
     // Declare the Xbox controller
     private final XboxController controller;
@@ -33,15 +33,15 @@ public class claw extends TimedRobot {
 
         // Set the motor speeds based on the trigger inputs
         if (leftTrigger > 0.1) {  // If the left trigger is pressed (value > 0)
-            leftMotor.set(leftTrigger);  // Drive forward with speed proportional to the trigger
-            rightMotor.set(leftTrigger); // Drive forward with the same speed
+            shooterMotor.set(leftTrigger);  // Drive forward with speed proportional to the trigger
+            
         } else if (rightTrigger > 0.1) {  // If the right trigger is pressed (value > 0)
-            leftMotor.set(-rightTrigger);  // Drive backward with speed proportional to the trigger
-            rightMotor.set(-rightTrigger); // Drive backward with the same speed
+            shooterMotor.set(-rightTrigger);  // Drive backward with speed proportional to the trigger
+           
         } else {
             // If no trigger is pressed, stop the motors
-            leftMotor.set(0);
-            rightMotor.set(0);
+            shooterMotor.set(0);
+           
         }
     }
 }
